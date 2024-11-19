@@ -1,13 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import UserModel from "../model/userModel";
 
 const SignUp = () => {
-  const [formValues, setFormValues] = useState({
-    username: "",
-    email: "",
-    mobile: "",
-    password: "",
-  });
+  const [formValues, setFormValues] = useState(new UserModel({}));
 
   const [formErrors, setFormErrors] = useState({});
 
@@ -34,24 +32,40 @@ errors.email="Email is required"
 
     if (!formValues.password) {
       errors.password = 'Password is required';
-    } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(formValues.password)) {
-      errors.password = 'Password must be at least 8 characters long, contain at least one letter and one number';
     }
 return errors;
 
   };
 
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async (e)=>{
     e.preventDefault();
+    console.log(formValues);
+    
     const errors=validateForm();
     console.log(errors);
     if(Object.keys(errors).length===0){
-      alert("Form submitted")
+      // alert("Form submitted")
     }else{
       // alert("Form Submission Failed");
       setFormErrors(errors);
     }
+    try {
+      const response = await axios.post("http://localhost:3000/api/auth/register-user", formValues);
+      console.log(response, 'res');
+
+      if (response.data.success) {
+          toast.success(response.data.message || 'Registration successful!');
+          setFormValues({username:"",email:"",mobile:"",password:""});
+          setFormErrors("");
+      } else {
+          toast.error(response.data.message || 'Registration failed!');
+      }
+  } catch (error) {
+      console.error('Error during registration:', error);
+      toast.error(error.response.data.message || "Something went wrong. Please try again later.");
+  }
+    
     
 
   }

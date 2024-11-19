@@ -2,7 +2,7 @@ import React from 'react';
 
 function Home(){
     return(
-        <h4 style={{textAlign:'center'}}>Welcome to Job Portal Application!!!</h4>
+        <h2 style={{textAlign:'center'}}>Welcome to Job Portal Application!!!</h2>
     )
 }
 
