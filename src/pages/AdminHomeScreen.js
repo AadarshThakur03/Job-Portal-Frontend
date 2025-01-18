@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../components/Header";
 
-function UserHomeScreen() {
+function AdminHomeScreen() {
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function UserHomeScreen() {
 
   return (
     <div>
-      <h2 style={{ textAlign: "center" }}>Welcome to User Home Screen</h2>
+      <h2 style={{ textAlign: "center" }}>Welcome to Admin Home Screen</h2>
       <div style={{ textAlign: "center" }}>
         <h2>
           {" "}
@@ -54,4 +54,4 @@ function UserHomeScreen() {
   );
 }
 
-export default UserHomeScreen;
+export default AdminHomeScreen;

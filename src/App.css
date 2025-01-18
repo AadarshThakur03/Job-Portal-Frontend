@@ -174,4 +174,13 @@
   font-weight: bold;
   color: #333;
 }
+.radio-div{
+  display: flex;
+}
+.radio-label{
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  
+}
 
