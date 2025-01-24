@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext } from "../UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { fetchUserDetails } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,11 +26,11 @@ const Login = () => {
         toast.success("Login successful!");
         const token = response.data.token;
         localStorage.setItem("authToken", token);
-        if(response.data.user.userType=="admin"){
+        fetchUserDetails();
+        if (response.data.user.userType == "admin") {
           navigate("/adminHomeScreen");
-        }else{
-
-         navigate("/homeScreen");
+        } else {
+          navigate("/homeScreen");
         }
       } else {
         toast.error(response.data.message || "Login failed");

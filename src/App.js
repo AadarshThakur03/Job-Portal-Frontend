@@ -6,12 +6,14 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'; // Import default CSS for toastify
 import UserHomeScreen from "./pages/UserHomeScreen";
 import AdminHomeScreen from "./pages/AdminHomeScreen";
+import { UserProvider } from "./UserContext";
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => {
   return (
+    <UserProvider>
     <Router>
       <Header/>
       <Suspense fallback={<div>Loading...</div>}>
@@ -33,6 +35,7 @@ const App = () => {
         theme="colored" 
       />
     </Router>
+    </UserProvider>
   );
 };
 

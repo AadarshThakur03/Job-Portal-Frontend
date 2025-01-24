@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../App.css";
+import { UserContext } from "../UserContext";
 
 const Header = () => {
   const location = useLocation(); // Get the current location
-  const [userData, setUserData] = useState(null);
+  
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setTimeout(() => {
-      getData();
-    }, 200);
-  }, [location]);
-
-  const getData = async () => {
-    const data = await JSON.parse(localStorage.getItem("userData"));
-    console.log("useeffct run");
-
-    if (data && data.isLoggedIn) {
-      setUserData(data.userData);
-    }
-  };
-
+  const {userData,setUserData}=useContext(UserContext);
+  
   const logout = () => {
     localStorage.clear();
     setUserData("");
